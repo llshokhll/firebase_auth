@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "165620638633",
+    "project_id": "fir-tutorial-e8c86",
+    "storage_bucket": "fir-tutorial-e8c86.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:165620638633:android:79e267e0d2e9bd2d631ab8",
+        "android_client_info": {
+          "package_name": "com.android.application"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfqyVk2KSyG2pDbdevWRfuyt0JwMSV0HI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
