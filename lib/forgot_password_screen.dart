@@ -25,13 +25,18 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           context: context,
           builder: (context) {
             return AlertDialog(
-              content: Text('Password reset link sent! Check your email'),
+              title: Text('Password reset link sent! Check your email'),
             );
           });
     } on FirebaseAuthException catch (e) {
       print(e);
-      AlertDialog(
-        content: Text(e.message.toString()),
+      showDialog(
+        context: context,
+        builder: (context){
+        return AlertDialog(
+          title: Text(e.message.toString()),
+        );
+        },
       );
     }
   }

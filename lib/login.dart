@@ -14,23 +14,44 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-    final _emailController = TextEditingController();
-    final _passwordController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
-    Future signIn() async {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+  Future signIn() async {
+    try {
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
           email: _emailController.text.trim(),
-          password: _passwordController.text.trim());
+      password: _passwordController.text.trim(),
+      );
+      showDialog(
+          context: context,
+          builder: (context) {
+            return Center(child: CircularProgressIndicator(),);
+          });
     }
+    on FirebaseAuthException catch (e) {
+      print(e);
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(e.message.toString()),
+          );
+        },
+      );
+    }
+  }
 
-    @override
-    void dispose() {
-      _emailController.dispose();
-      _passwordController.dispose();
-      super.dispose();
-    }
-    @override
-    Widget build(BuildContext context) {
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       body: SafeArea(
@@ -110,21 +131,27 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(
                   height: 10,
                 ),
-                  Padding(
+                Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       GestureDetector(
-                        onTap:(){
-                          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=> const ForgotPasswordScreen()));
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      const ForgotPasswordScreen()));
                         },
-                        child: const Text('Forgot Password?',
+                        child: const Text(
+                          'Forgot Password?',
                           style: TextStyle(
                             color: Colors.blue,
                             fontWeight: FontWeight.bold,
                             fontSize: 15,
-                          ),),
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -159,7 +186,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(
                   height: 10,
                 ),
-                 Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(

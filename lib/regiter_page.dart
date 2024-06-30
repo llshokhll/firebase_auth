@@ -33,17 +33,29 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Future signUp() async {
-    if (passwordConfirmed()) {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: _emailController.text.trim(),
-          password: _passwordController.text.trim());
-          addUserDetails(
+    try{
+      if (passwordConfirmed()) {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: _emailController.text.trim(),
+            password: _passwordController.text.trim());
+        addUserDetails(
           _lastNameController.text.trim(),
           _firstNameController.text.trim(),
           int.parse(_ageController.text.trim()),
           _emailController.text.trim(),
           _passwordController.text.trim(),
+        );
+      }
+    }on FirebaseAuthException catch(e){
+      print(e);
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Text(e.message.toString()),
           );
+        },
+      );
     }
   }
 
