@@ -27,6 +27,5 @@ class _AuthPageState extends State<AuthPage> {
     else{
       return RegisterPage(showLoginPage: toggleScreens,);
     }
-    return Scaffold();
   }
 }
